@@ -37,4 +37,15 @@ export default class MotorcycleController {
       next(error);
     }
   }
+
+  public async updateMotorcycle(req: Request, res:Response, next:NextFunction) {
+    try {
+      const { id } = req.params;
+      const data = await this.service.updateMotorcycle(id, req.body);
+      if (!data) throw new NotFoundError('Motorcycle not found');
+      return res.status(200).json(data);
+    } catch (error) {
+      next(error);
+    }
+  }
 }

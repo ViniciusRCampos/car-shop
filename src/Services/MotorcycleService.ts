@@ -32,6 +32,16 @@ class MotorcycleService {
     const data = this.createNewVehicle(result);
     return data;
   }
+
+  public async updateMotorcycle(id: string, obj: IMotorcycles) {
+    if (!isValidObjectId(id)) throw new ValidationError();
+    const result = await this.motorcycleODM.update(id, obj);
+    if (result) {
+      const data = { id, ...obj };
+      return this.createNewVehicle(data);
+    }
+    return null;
+  }
 }
 
 export default MotorcycleService;
