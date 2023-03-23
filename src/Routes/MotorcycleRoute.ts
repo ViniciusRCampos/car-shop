@@ -15,4 +15,13 @@ motorcycleRoutes.post(
   (req, res, next) => motorcycleController.addNewVehicle(req, res, next),
 );
 
+motorcycleRoutes.get(
+  '/motorcycles',
+  (req, res, next) => motorcycleController.readAll(req, res, next),
+);
+motorcycleRoutes.get(
+  '/motorcycles/:id',
+  (req, res, next) => motorcycleController.readOne(req, res, next),
+);
+
 export default motorcycleRoutes;

@@ -1,4 +1,6 @@
+import { isValidObjectId } from 'mongoose';
 import Motorcycle from '../Domains/Motorcycle';
+import ValidationError from '../Error/ValidationError';
 import IMotorcycles from '../Interfaces/IMotorcycle';
 import MotorcycleODM from '../Models/MotorcycleODM';
 
@@ -16,6 +18,19 @@ class MotorcycleService {
   public async addNewVehicle(vehicle: IMotorcycles) {
     const newVehicle = await this.motorcycleODM.create(vehicle);
     return this.createNewVehicle(newVehicle);
+  }
+
+  public async readAll() {
+    const results = await this.motorcycleODM.findAll();
+    const data = results.map((result) => this.createNewVehicle(result));
+    return data;
+  }
+
+  public async readOne(id: string) {
+    if (!isValidObjectId(id)) throw new ValidationError();
+    const result = await this.motorcycleODM.findOne(id);
+    const data = this.createNewVehicle(result);
+    return data;
   }
 }
 
