@@ -3,16 +3,26 @@ import CarController from '../Controllers/CarController';
 import CarODM from '../Models/CarODM';
 import CarService from '../Services/CarService';
 
-const routes = Router();
+const carRoutes = Router();
 
 const service = new CarService(
   new CarODM(),
 );
 const carController = new CarController(service);
 
-routes.post(
+carRoutes.get(
+  '/cars',
+  (req, res, next) => carController.readAll(req, res, next),
+);
+
+carRoutes.get(
+  '/cars/:id',
+  (req, res, next) => carController.readOne(req, res, next),
+);
+
+carRoutes.post(
   '/cars',
   (req, res, next) => carController.addNewCar(req, res, next),
 );
 
-export default routes;
+export default carRoutes;

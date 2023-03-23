@@ -8,7 +8,7 @@ abstract class AbstractODM<T> {
   constructor(schema: Schema, modelName: string) {
     this.schema = schema;
     this.modelName = modelName;
-    this.model = models[this.modelName] || model(this.modelName, this.schema);
+    this.model = models[modelName] || model(modelName, this.schema);
   }
   
   public async create(obj: T): Promise<T> {
@@ -23,6 +23,14 @@ abstract class AbstractODM<T> {
       { ...obj } as UpdateQuery<T>,
       { new: true },
     );
+  }
+
+  public async findAll(): Promise<T[]> {
+    return this.model.find();
+  }
+
+  public async findOne(id: string) {
+    return this.model.findById(id);
   }
 }
   
