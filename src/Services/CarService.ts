@@ -36,5 +36,15 @@ class CarService {
     const data = this.createNewCar(result);
     return data;
   }
+
+  public async updateCar(id: string, car: ICar) {
+    if (!isValidObjectId(id)) throw new ValidationError();
+    const result = await this.carODM.update(id, car);
+    if (result) {
+      const data = { id, ...car };
+      return this.createNewCar(data);
+    }
+    return null;
+  }
 }
 export default CarService;

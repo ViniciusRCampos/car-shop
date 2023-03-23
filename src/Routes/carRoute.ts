@@ -20,6 +20,11 @@ carRoutes.get(
   (req, res, next) => carController.readOne(req, res, next),
 );
 
+carRoutes.put(
+  '/cars/:id',
+  (req, res, next) => carController.updateCar(req, res, next),
+);
+
 carRoutes.post(
   '/cars',
   (req, res, next) => carController.addNewCar(req, res, next),
