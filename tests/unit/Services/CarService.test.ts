@@ -9,7 +9,7 @@ describe('Testing Car Service', function () {
   beforeEach(function () {
     sinon.restore();
   });
-  it('Testing readAll receive all cars', async function () {
+  it('Testing readAll, to get all cars', async function () {
     // Arrange
     const outputMock: Car[] = [new Car({
       id: '634852326b35b59438fbea2f',
